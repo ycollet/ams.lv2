@@ -1,9 +1,3 @@
-🚨 This project is archived and no longer maintained. 🚨
-
-Thank you for your past support. Feel free to explore the existing codebase and documentation. For any questions, consider checking the existing issues, but note that responses may be delayed.
-
-If you find this project useful and wish to continue its development, please fork it with proper attribution and adherence to the license.
-
 ams-lv2
 =======
 
@@ -26,9 +20,11 @@ More information can be found here:
 INSTALL
 -------
 
-	$  ./waf configure
-	$  ./waf 
-	$  ./waf install
+	$ mkdir build
+	$ cd build
+	$ cmake -DCMAKE_INSTALL_PREFIX=<PATH> ..
+	$ make -j 4
+	$ make install
 
 
 RUNNING
@@ -44,6 +40,3 @@ BUG REPORTING
 -------------
 Please use the issue tracker on github to report bugs:
 [http://github.com/blablack/ams-lv2/issues](http://github.com/blablack/ams-lv2/issues)
-
-
-
