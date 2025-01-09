@@ -71,6 +71,7 @@ set(PLUGIN_LIST
 
 macro(build_plugin)
   add_library(${ARGV0} SHARED src/${ARGV0}.cpp src/synthdata.cpp)
+  target_link_options(${ARGV0} PRIVATE "LINKER:-as-needed")
   set_target_properties(${ARGV0} PROPERTIES PREFIX "")
   target_compile_options(${ARGV0} PRIVATE "-DPLUGIN_CLASS=${ARGV0};-DURI_PREFIX=\"http://github.com/blablack/ams-lv2/\";-DPLUGIN_URI_SUFFIX=\"${ARGV0}\";-DPLUGIN_HEADER=\"src/${ARGV0}.hpp\"")
   target_link_libraries(${ARGV0} PRIVATE ${LVTK_LINK_LIBRARIES};${LVTK_PLUGIN_LINK_LIBRARIES})
@@ -82,6 +83,7 @@ endforeach()
 
 macro(build_plugin_gui)
   add_library(${ARGV0} SHARED src/${ARGV0}.cpp src/synthdata.cpp src/dial.cpp src/labeleddial.cpp ${ARGV1})
+  target_link_options(${ARGV0} PRIVATE "LINKER:-as-needed")
   set_target_properties(${ARGV0} PROPERTIES PREFIX "")
   target_compile_options(${ARGV0} PRIVATE "-DPLUGIN_CLASS=${ARGV0};-DURI_PREFIX=\"http://github.com/blablack/ams-lv2/\";-DPLUGIN_URI_SUFFIX=\"${ARGV0}\";-DPLUGIN_HEADER=\"src/${ARGV0}.hpp\"")
   target_link_libraries(${ARGV0} "${GTKMM24_LINK_LIBRARIES};${GTK2_LINK_LIBRARIES};${CAIRO_LINK_LIBRARIES};${LVTK_UI_LINK_LIBRARIES}")
@@ -143,6 +145,7 @@ build_plugin_gui(advenv_gui "src/advenv_gui_scope.cpp;src/my_box.cpp")
 
 macro(build_plugin_with_extra)
   add_library(${ARGV0} SHARED src/synthdata.cpp src/dial.cpp src/labeleddial.cpp ${ARGV1})
+  target_link_options(${ARGV0} PRIVATE "LINKER:-as-needed")
   set_target_properties(${ARGV0} PROPERTIES PREFIX "")
   target_compile_options(${ARGV0} PRIVATE "${ARGV2};-DPLUGIN_CLASS=${ARGV0};-DURI_PREFIX=\"http://github.com/blablack/ams-lv2/\";-DPLUGIN_URI_SUFFIX=\"${ARGV0}\";-DPLUGIN_HEADER=\"src/${ARGV0}.hpp\"")
   target_link_libraries(${ARGV0} PRIVATE ${GTKMM24_LINK_LIBRARIES}
@@ -153,6 +156,7 @@ endmacro()
 
 macro(build_plugin_gui_with_extra)
   add_library(${ARGV0} SHARED src/synthdata.cpp src/dial.cpp src/labeleddial.cpp ${ARGV1})
+  target_link_options(${ARGV0} PRIVATE "LINKER:-as-needed")
   set_target_properties(${ARGV0} PROPERTIES PREFIX "")
   target_compile_options(${ARGV0} PRIVATE "${ARGV2};-DPLUGIN_CLASS=${ARGV0};-DURI_PREFIX=\"http://github.com/blablack/ams-lv2/\";-DPLUGIN_URI_SUFFIX=\"${ARGV0}\";-DPLUGIN_HEADER=\"src/${ARGV0}.hpp\"")
   target_link_libraries(${ARGV0} PRIVATE ${GTKMM24_LINK_LIBRARIES}
@@ -162,16 +166,12 @@ macro(build_plugin_gui_with_extra)
 endmacro()
 
 add_library(fftvocoder SHARED src/synthdata.cpp src/dial.cpp src/labeleddial.cpp)
+target_link_options(fftvocoder PRIVATE "LINKER:-as-needed")
 set_target_properties(fftvocoder PROPERTIES PREFIX "")
 target_compile_options(fftvocoder PRIVATE "-DPLUGIN_CLASS=fftvocoder;-DURI_PREFIX=\"http://github.com/blablack/ams-lv2/\";-DPLUGIN_URI_SUFFIX=\"fftvocoder\";-DPLUGIN_HEADER=\"src/fftvocoder.hpp\"")
 target_link_libraries(fftvocoder PRIVATE ${LVTK_LINK_LIBRARIES}
-  ${LVTK_PLUGIN_LINK_LIBRARIES}
-  ${LVTK_UI_LINK_LIBRARIES}
-  ${LVTK_GTKUI_LINK_LIBRARIES}
   ${GTKMM24_LINK_LIBRARIES}
-  ${GTK2_LINK_LIBRARIES}
-  ${CAIRO_LINK_LIBRARIES}
-  ${LV2_LINK_LIBRARIES}
+  ${LVTK_PLUGIN_LINK_LIBRARIES}
   ${FFTW3_LINK_LIBRARIES}
 )
 
